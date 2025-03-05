@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { DropdownMenu } from 'bits-ui';
 	import { createEventDispatcher, getContext, onMount } from 'svelte';
-
 	import { flyAndScale } from '$lib/utils/transitions';
 	import { goto } from '$app/navigation';
 	import ArchiveBox from '$lib/components/icons/ArchiveBox.svelte';
@@ -11,13 +10,15 @@
 	import { userSignOut } from '$lib/apis/auths';
 
 	const i18n = getContext('i18n');
-
 	export let show = false;
 	export let role = '';
 	export let className = 'max-w-[240px]';
+	export let AWELS_HOST = import.meta.env.VITE_AWELS_HOST;
 
 	const dispatch = createEventDispatcher();
+
 </script>
+
 
 <DropdownMenu.Root
 	bind:open={show}
@@ -156,7 +157,7 @@
 			<button
   				class="flex rounded-md py-2 px-3 w-full hover:bg-gray-50 dark:hover:bg-gray-800 transition"
   				on:click={() => {
-    				window.open('http://localhost:6333/dashboard', '_blank');}}
+    				window.open(`http://${AWELS_HOST}:6333/dashboard`, '_blank');}}
 		>
 		<div class="self-center mr-3">
 			<svg
@@ -178,7 +179,7 @@
 		<button
 			class="flex rounded-md py-2 px-3 w-full hover:bg-gray-50 dark:hover:bg-gray-800 transition"
 			on:click={() => {
-				window.open('http://localhost:3001', '_blank');
+				window.open(`http://${AWELS_HOST}:3001`, '_blank');
 			}}
 			>
 			<div class="self-center mr-3">
@@ -201,7 +202,7 @@
 		<button
 			class="flex rounded-md py-2 px-3 w-full hover:bg-gray-50 dark:hover:bg-gray-800 transition"
 			on:click={() => {
-				window.open('http://localhost:7860', '_blank');
+				window.open(`http://${AWELS_HOST}:7860`, '_blank');
 			}}
 			>
 			<div class="self-center mr-3">
@@ -224,7 +225,7 @@
 		<button
 			class="flex rounded-md py-2 px-3 w-full hover:bg-gray-50 dark:hover:bg-gray-800 transition"
 			on:click={() => {
-				window.open('http://localhost:6888', '_blank');
+				window.open(`http://${AWELS_HOST}:6888`, '_blank');
 			}}
 			>
 			<div class="self-center mr-3">
@@ -247,7 +248,7 @@
 		<button
 			class="flex rounded-md py-2 px-3 w-full hover:bg-gray-50 dark:hover:bg-gray-800 transition"
 			on:click={() => {
-				window.open('http://localhost:8080', '_blank');
+				window.open(`http://${AWELS_HOST}:6080`, '_blank');
 			}}
 			>
 			<div class="self-center mr-3">
@@ -270,7 +271,7 @@
 		<button
 			class="flex rounded-md py-2 px-3 w-full hover:bg-gray-50 dark:hover:bg-gray-800 transition"
 			on:click={() => {
-				window.open('http://localhost:3003', '_blank');
+				window.open(`http://${AWELS_HOST}:3003`, '_blank');
 			}}
 			>
 			<div class="self-center mr-3">
@@ -293,7 +294,7 @@
 		<button
 			class="flex rounded-md py-2 px-3 w-full hover:bg-gray-50 dark:hover:bg-gray-800 transition"
 			on:click={() => {
-				window.open('http://localhost:6001', '_blank');
+				window.open(`http://${AWELS_HOST}:6001`, '_blank');
 			}}
 			>
 			<div class="self-center mr-3">
