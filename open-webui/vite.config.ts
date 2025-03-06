@@ -19,7 +19,8 @@ export default defineConfig({
 	plugins: [sveltekit()],
 	define: {
 		APP_VERSION: JSON.stringify(process.env.npm_package_version),
-		APP_BUILD_HASH: JSON.stringify(process.env.APP_BUILD_HASH || 'dev-build')
+		APP_BUILD_HASH: JSON.stringify(process.env.APP_BUILD_HASH || 'dev-build'),
+		'import.meta.env.VITE_AWELS_HOST': JSON.stringify(process.env.VITE_AWELS_HOST || '192.168.1.10')
 	},
 	build: {
 		sourcemap: true
