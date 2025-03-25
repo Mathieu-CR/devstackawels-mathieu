@@ -3,7 +3,7 @@
 	import { onMount, getContext } from 'svelte';
 
 	import { user, config, settings } from '$lib/stores';
-	import { updateUserProfile, createAPIKey, getAPIKey } from '$lib/apis/auths';
+	import { updateUserProfile, createAPIKey, getAPIKey, getSessionUser } from '$lib/apis/auths';
 
 	import UpdatePassword from './Account/UpdatePassword.svelte';
 	import { getGravatarUrl } from '$lib/apis/utils';
@@ -53,7 +53,13 @@
 		);
 
 		if (updatedUser) {
-			await user.set(updatedUser);
+			// Get Session User Info
+			const sessionUser = await getSessionUser(localStorage.token).catch((error) => {
+				toast.error(`${error}`);
+				return null;
+			});
+
+			await user.set(sessionUser);
 			return true;
 		}
 		return false;
@@ -100,7 +106,6 @@
 					img.onload = function () {
 						const canvas = document.createElement('canvas');
 						const ctx = canvas.getContext('2d');
-						
 
 						// Calculate the aspect ratio of the image
 						const aspectRatio = img.width / img.height;
@@ -126,8 +131,7 @@
 						// Draw the image on the canvas
 						ctx.drawImage(img, offsetX, offsetY, newWidth, newHeight);
 						ctx.fillStyle = '#8B00FF';
-    					ctx.fillRect(0, 0, canvas.width, canvas.height);
-
+						ctx.fillRect(0, 0, canvas.width, canvas.height);
 						// Get the base64 representation of the compressed image
 						const compressedSrc = canvas.toDataURL('image/jpeg');
 
@@ -211,7 +215,7 @@
 						<button
 							class=" text-xs text-center text-gray-800 dark:text-gray-400 rounded-full px-4 py-0.5 bg-gray-100 dark:bg-gray-850"
 							on:click={async () => {
-								const url = await getGravatarUrl($user.email);
+								const url = await getGravatarUrl(localStorage.token, $user.email);
 
 								profileImageUrl = url;
 							}}>{$i18n.t('Use Gravatar')}</button
@@ -233,7 +237,7 @@
 
 					<div class="flex-1">
 						<input
-							class="w-full rounded-lg py-2 px-4 text-sm dark:text-gray-300 dark:bg-gray-850 outline-none"
+							class="w-full rounded-lg py-2 px-4 text-sm dark:text-gray-300 dark:bg-gray-850 outline-hidden"
 							type="text"
 							bind:value={name}
 							required
@@ -248,7 +252,7 @@
 
 					<div class="flex-1">
 						<input
-							class="w-full rounded-lg py-2 px-4 text-sm dark:text-gray-300 dark:bg-gray-850 outline-none"
+							class="w-full rounded-lg py-2 px-4 text-sm dark:text-gray-300 dark:bg-gray-850 outline-hidden"
 							type="url"
 							placeholder={$i18n.t('Enter your webhook URL')}
 							bind:value={webhookUrl}
@@ -263,7 +267,7 @@
 			<UpdatePassword />
 		</div>
 
-		<hr class=" dark:border-gray-850 my-4" />
+		<hr class="border-gray-100 dark:border-gray-850 my-4" />
 
 		<div class="flex justify-between items-center text-sm">
 			<div class="  font-medium">{$i18n.t('API keys')}</div>
