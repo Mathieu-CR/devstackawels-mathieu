@@ -18,7 +18,9 @@
 	let host = '';
   
 	onMount(() => {
-  host = window.runtimeconfig?.AWELS_HOST;
+		if (window.runtimeConfig && window.runtimeConfig.AWELS_HOST) {
+  host = window.runtimeConfig.AWELS_HOST;
+}
 });
 
   </script>
