@@ -18,9 +18,9 @@
 	let host = '';
   
 	onMount(() => {
-	  host = window.runtimeconfig.AWELS_HOST;
-	  console.log("Host chargé dynamiquement depuis runtimeconfig:", host);
-	});
+  host = window.runtimeconfig?.AWELS_HOST;
+});
+
   </script>
   
   
