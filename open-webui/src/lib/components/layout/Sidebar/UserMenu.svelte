@@ -1,23 +1,30 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { DropdownMenu } from 'bits-ui';
-	import { createEventDispatcher, getContext, onMount } from 'svelte';
-	import { flyAndScale } from '$lib/utils/transitions';
-	import { goto } from '$app/navigation';
+	import { createEventDispatcher, getContext } from 'svelte';
 	import ArchiveBox from '$lib/components/icons/ArchiveBox.svelte';
 	import { showSettings, activeUserIds, USAGE_POOL, mobile, showSidebar } from '$lib/stores';
-	import { fade, slide } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 	import Tooltip from '$lib/components/common/Tooltip.svelte';
 	import { userSignOut } from '$lib/apis/auths';
-
+	import { goto } from '$app/navigation';
+  
 	const i18n = getContext('i18n');
-	const host = import.meta.env.VITE_AWELS_URL;
-	console.log("Host:", host);
+	const dispatch = createEventDispatcher();
+  
 	export let show = false;
 	export let role = '';
 	export let className = 'max-w-[240px]';
-	const dispatch = createEventDispatcher();
-
-</script>
+	let host = '';
+  
+	onMount(async () => {
+	  const res = await fetch('/manifest.json');
+	  const config = await res.json();
+	  host = config.AWELS_HOST;
+	  console.log("Host:", host);
+	});
+  </script>
+  
 
 
 <DropdownMenu.Root
