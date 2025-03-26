@@ -31,7 +31,6 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 
-COPY .env .env
 COPY . .
 ENV APP_BUILD_HASH=${BUILD_HASH}
 RUN npm run build
