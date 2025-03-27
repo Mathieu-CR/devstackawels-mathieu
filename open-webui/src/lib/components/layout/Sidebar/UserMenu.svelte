@@ -18,14 +18,14 @@
 	let host = '';
   
 	onMount(() => {
-		if (window.runtimeConfig && window.runtimeConfig.AWELS_HOST) {
-  host = window.runtimeConfig.AWELS_HOST;
-}
-});
-
+	  if (window.runtimeConfig && window.runtimeConfig.AWELS_HOST) {
+		host = window.runtimeConfig.AWELS_HOST;
+		console.log("Host récupéré depuis runtimeconfig:", host);
+	  } else {
+		console.warn("runtimeconfig.AWELS_HOST n'est pas défini");
+	  }
+	});
   </script>
-  
-  
 
 
 <DropdownMenu.Root

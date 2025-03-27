@@ -165,6 +165,11 @@ COPY --chown=$UID:$GID --from=build /app/package.json /app/package.json
 # copy backend files
 COPY --chown=$UID:$GID ./backend .
 
+# Copy the runtime config generator script
+COPY --chown=$UID:$GID ./generate-config.sh /app/generate-config.sh
+RUN chmod +x /app/generate-config.sh
+
+
 EXPOSE 8080
 
 HEALTHCHECK CMD curl --silent --fail http://localhost:${PORT:-8080}/health | jq -ne 'input.status == true' || exit 1
