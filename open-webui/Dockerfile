@@ -180,4 +180,5 @@ ARG BUILD_HASH
 ENV WEBUI_BUILD_VERSION=${BUILD_HASH}
 ENV DOCKER=true
 
-CMD [ "bash", "start.sh"]
+
+CMD bash -c "/app/generate-config.sh && bash start.sh"
