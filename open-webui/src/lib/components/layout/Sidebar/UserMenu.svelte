@@ -187,6 +187,10 @@
 		<button
 			class="flex rounded-md py-2 px-3 w-full hover:bg-gray-50 dark:hover:bg-gray-800 transition"
 			on:click={() => {
+				if (!host) {
+    console.warn('No host defined');
+    return;
+  }
 				window.open(`http://${host}:3001`, '_blank');
 			}}
 			>
