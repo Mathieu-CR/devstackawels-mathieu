@@ -19,8 +19,9 @@ WORKDIR /usr/src
 # Copier tout le code source
 COPY . .
 
-# Créer le dossier manquant
-RUN mkdir -p /usr/src/packages/ui/src/views/credentials
+# Créer le dossier manquant et un fichier index.js vide
+RUN mkdir -p /usr/src/packages/ui/src/views/credentials && \
+    echo "// Placeholder file for import\nexport default {}" > /usr/src/packages/ui/src/views/credentials/index.js
 
 # Installer toutes les dépendances
 RUN pnpm install
