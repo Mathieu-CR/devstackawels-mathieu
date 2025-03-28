@@ -2,7 +2,7 @@ FROM node:20-alpine
 
 # Dépendances nécessaires
 RUN apk add --update libc6-compat python3 make g++ \
- && apk add --no-cache build-base cairo-dev pango-dev chromium
+ && apk add --no-cache build-base cairo-dev pango-dev chromium git
 
 # Installer PNPM globalement
 RUN npm install -g pnpm
@@ -18,6 +18,9 @@ WORKDIR /usr/src
 
 # Copier tout le code source
 COPY . .
+
+# Créer le dossier manquant
+RUN mkdir -p /usr/src/packages/ui/src/views/credentials
 
 # Installer toutes les dépendances
 RUN pnpm install
