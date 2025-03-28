@@ -19,11 +19,11 @@ WORKDIR /usr/src
 # Copier tout le code source
 COPY . .
 
-# Créer tous les fichiers placeholder nécessaires
-RUN mkdir -p /usr/src/packages/ui/src/views/credentials && \
-    echo "// Placeholder file for import\nconst allCredentialComponents = {AddEditCredentialDialog: () => null, CredentialListDialog: () => null};\nexport default allCredentialComponents;\nexport const getCredentialTypes = () => [];\nexport const getCredential = () => ({});" > /usr/src/packages/ui/src/views/credentials/index.js && \
-    echo "// Placeholder file\nimport React from 'react';\nconst AddEditCredentialDialog = (props) => {\n  return null;\n};\nAddEditCredentialDialog.defaultProps = {\n  show: false,\n  dialogProps: {},\n  onCancel: () => {},\n  credentialId: '',\n  credentialType: '',\n  onCredentialUpdated: () => {}\n};\nexport default AddEditCredentialDialog;" > /usr/src/packages/ui/src/views/credentials/AddEditCredentialDialog.jsx && \
-    echo "// Placeholder file\nimport React from 'react';\nconst CredentialListDialog = (props) => {\n  return null;\n};\nCredentialListDialog.defaultProps = {\n  show: false,\n  dialogProps: {},\n  onCancel: () => {},\n  onCredentialSelected: () => {}\n};\nexport default CredentialListDialog;" > /usr/src/packages/ui/src/views/credentials/CredentialListDialog.jsx
+# Modifier CredentialInputHandler.jsx pour éviter l'import problématique
+RUN if [ -f /usr/src/packages/ui/src/views/canvas/CredentialInputHandler.jsx ]; then \
+    sed -i 's/import AddEditCredentialDialog from.*$/const AddEditCredentialDialog = () => null;/' /usr/src/packages/ui/src/views/canvas/CredentialInputHandler.jsx && \
+    sed -i 's/import CredentialListDialog from.*$/const CredentialListDialog = () => null;/' /usr/src/packages/ui/src/views/canvas/CredentialInputHandler.jsx; \
+    fi
 
 # Installer toutes les dépendances
 RUN pnpm install
