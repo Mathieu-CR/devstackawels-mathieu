@@ -21,10 +21,9 @@ COPY . .
 
 # Créer tous les fichiers placeholder nécessaires
 RUN mkdir -p /usr/src/packages/ui/src/views/credentials && \
-    echo "// Placeholder file for import\nexport default {}" > /usr/src/packages/ui/src/views/credentials/index.js && \
-    echo "// Placeholder file\nexport default function AddEditCredentialDialog() { return null; }" > /usr/src/packages/ui/src/views/credentials/AddEditCredentialDialog.jsx && \
-    echo "// Placeholder file\nexport default function CredentialListDialog() { return null; }" > /usr/src/packages/ui/src/views/credentials/CredentialListDialog.jsx && \
-    echo "// Extra placeholders to prevent further errors\nconst allCredentialComponents = {AddEditCredentialDialog: () => null, CredentialListDialog: () => null};\nexport default allCredentialComponents;\nexport const getCredentialTypes = () => [];\nexport const getCredential = () => ({});" >> /usr/src/packages/ui/src/views/credentials/index.js
+    echo "// Placeholder file for import\nconst allCredentialComponents = {AddEditCredentialDialog: () => null, CredentialListDialog: () => null};\nexport default allCredentialComponents;\nexport const getCredentialTypes = () => [];\nexport const getCredential = () => ({});" > /usr/src/packages/ui/src/views/credentials/index.js && \
+    echo "// Placeholder file\nimport React from 'react';\nconst AddEditCredentialDialog = (props) => {\n  return null;\n};\nAddEditCredentialDialog.defaultProps = {\n  show: false,\n  dialogProps: {},\n  onCancel: () => {},\n  credentialId: '',\n  credentialType: '',\n  onCredentialUpdated: () => {}\n};\nexport default AddEditCredentialDialog;" > /usr/src/packages/ui/src/views/credentials/AddEditCredentialDialog.jsx && \
+    echo "// Placeholder file\nimport React from 'react';\nconst CredentialListDialog = (props) => {\n  return null;\n};\nCredentialListDialog.defaultProps = {\n  show: false,\n  dialogProps: {},\n  onCancel: () => {},\n  onCredentialSelected: () => {}\n};\nexport default CredentialListDialog;" > /usr/src/packages/ui/src/views/credentials/CredentialListDialog.jsx
 
 # Installer toutes les dépendances
 RUN pnpm install
