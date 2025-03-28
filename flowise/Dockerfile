@@ -34,7 +34,7 @@ RUN pnpm install
 RUN pnpm --filter flowise-ui... build || echo "UI build failed but continuing"
 
 # Exposer le port par défaut
-EXPOSE 3000
+EXPOSE 8085
 
 # Lancer l'app
 CMD [ "pnpm", "start" ]
